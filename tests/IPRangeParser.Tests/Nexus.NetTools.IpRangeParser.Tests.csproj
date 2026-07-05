@@ -4,16 +4,45 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
+    <VSTestLogger>trx</VSTestLogger>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="xunit" Version="2.6.6" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" />
-    <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <!-- Use older Test.Sdk for .NET 6 compatibility -->
+    <PackageReference Condition="'$(TargetFramework)' == 'net6.0'" Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageReference Condition="'$(TargetFramework)' != 'net6.0'" Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+
+    <PackageReference Include="xunit" Version="2.9.2" />
+
+    <!-- Use specific runner version for .NET 6 -->
+    <PackageReference Condition="'$(TargetFramework)' == 'net6.0'" Include="xunit.runner.visualstudio" Version="2.5.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Condition="'$(TargetFramework)' != 'net6.0'" Include="xunit.runner.visualstudio" Version="2.8.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="coverlet.collector" Version="6.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Nexus.NetTools.IPRangeParser\Nexus.NetTools.IPRangeParser.csproj" />
   </ItemGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <DefineConstants>NET6_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <DefineConstants>NET8_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <DefineConstants>NET10_0</DefineConstants>
+  </PropertyGroup>
 </Project>

@@ -618,15 +618,12 @@ namespace Nexus.NetTools.IPRangeParser.Tests
         [Fact]
         public void ParseRange_InvalidRangeFormat_ThrowsFormatException()
         {
-            // IPAddress.Parse throws FormatException for invalid IP addresses
-            // The range "invalid-range" cannot be split into valid IPs
             Assert.Throws<FormatException>(() => IPRangeFastParser.ParseRange("invalid-range").ToList());
         }
 
         [Fact]
         public void ParseRange_RangeWithInvalidIP_ThrowsFormatException()
         {
-            // One of the IPs is invalid
             Assert.Throws<FormatException>(() => IPRangeFastParser.ParseRange("999.999.999.999 - 192.168.1.255").ToList());
         }
 
