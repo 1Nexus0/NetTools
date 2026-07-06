@@ -31,7 +31,7 @@ Or add to your project file:
 <PackageReference Include="Nexus.NetTools.IPRangeParser" Version="1.0.0" />
 ```
 
-# Quick Start
+## Quick Start
 
 ```csharp
 using Nexus.NetTools.IPRangeParser;
@@ -52,8 +52,11 @@ foreach (var cidr in result)
 // 192.168.1.64/26
 // 192.168.1.128/25
 ```
-# Usage Examples
-## Different Input Formats
+
+## Usage Examples
+
+### Different Input Formats
+
 ```csharp
 using Nexus.NetTools.IPRangeParser;
 
@@ -82,7 +85,8 @@ var result4 = IPRangeFastParser.ParseRange("192.168.0.1 - 192.168.0.31");
 // 192.168.0.8/29
 // 192.168.0.16/28
 ```
-## IPv6 Support
+
+### IPv6 Support
 
 ```csharp
 using Nexus.NetTools.IPRangeParser;
@@ -113,7 +117,8 @@ foreach (var cidr in result)
 // 2001:db8::/112
 ```
 
-## Using the Cached Version
+### Using the Cached Version
+
 ```csharp
 using Nexus.NetTools.IPRangeParser;
 
@@ -133,8 +138,9 @@ var (ipv4Count, ipv6Count) = IPRangeFastParserPooled.GetCacheSize();
 Console.WriteLine($"IPv4 cache: {ipv4Count}, IPv6 cache: {ipv6Count}");
 ```
 
-## Real-World Examples
-### Nginx Configuration Generator
+### Real-World Examples
+
+#### Nginx Configuration Generator
 
 ```csharp
 using Nexus.NetTools.IPRangeParser;
@@ -163,7 +169,8 @@ Console.WriteLine(nginxConfig.ToString());
 // allow 172.16.0.0/12;
 // deny all;
 ```
-### IP Range Summary
+
+#### IP Range Summary
 
 ```csharp
 using Nexus.NetTools.IPRangeParser;
@@ -192,7 +199,8 @@ Console.WriteLine(SummarizeRange("192.168.1.1", "192.168.1.255"));
 //   Blocks: 192.168.1.1/32, 192.168.1.2/31, 192.168.1.4/30, 192.168.1.8/29, 192.168.1.16/28, 192.168.1.32/27, 192.168.1.64/26, 192.168.1.128/25
 ```
 
-### Concurrent Processing
+#### Concurrent Processing
+
 ```csharp
 using Nexus.NetTools.IPRangeParser;
 
@@ -217,9 +225,9 @@ Parallel.ForEach(ranges, range =>
 // 2001:db8:: - 2001:db8::ffff: 1 CIDR blocks
 ```
 
-# API Reference
+## API Reference
 
-IPRangeFastParser
+### IPRangeFastParser
 
 | Method                           | Description                    |
 |----------------------------------|--------------------------------|
@@ -227,3 +235,44 @@ IPRangeFastParser
 | ParseRange(IPAddress, IPAddress) | Parse from IPAddress objects   |
 | ParseRange(string, string)       | Parse from string addresses    |
 | ParseRange(string)               | Parse from "start - end" format|
+
+### IPRangeFastParserPooled
+
+| Method          | Description                                   |
+|-----------------|-----------------------------------------------|
+| ParseRange(...) | Same as above with LRU caching (IPv4 only)    |
+| Clear()         | Clear all caches                              |
+| GetCacheSize()  | Get current cache size (Ipv4Count, Ipv6Count) |
+
+### Supported IP Formats
+
+| Format           | Example                                 |
+|------------------|-----------------------------------------|
+| IPv4             | 192.168.1.1                             |
+| IPv4 with range  | 192.168.1.1 - 192.168.1.255             |
+| IPv6             | 2001:db8::1                             |
+| IPv6 with range  | 2001:db8::1 - 2001:db8::ffff            |
+| IPv6 compressed  | ::1                                     |
+| IPv6 full        | 2001:0db8:0000:0000:0000:0000:0000:0001 |
+
+## License
+
+MIT
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+- Fork the repository
+
+- Create your feature branch (git checkout -b features/amazing-feature)
+
+- Commit your changes (git commit -m 'Add some amazing feature')
+
+- Push to the branch (git push origin features/amazing-feature)
+
+- Open a Pull Request
+
+## Support
+
+If you encounter any issues, please open an issue on GitHub.
