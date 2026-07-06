@@ -10,7 +10,7 @@ Ultra-fast IP range parser with LRU caching. Converts IP ranges to minimal CIDR 
 ## Features
 
 - 🚀 **Blazing fast** - Microsecond-level parsing (up to 1.6M ops/sec)
-- 💾 **LRU Cache** - Optional caching for repeated IPs (IPv4 only)
+- 💾 **LRU Cache** - Optional caching for repeated IPs
 - 🔒 **Thread-safe** - Safe for concurrent use
 - 📦 **No dependencies** - Pure .NET implementation
 - 🌐 **IPv4 & IPv6** - Full support for both address families
