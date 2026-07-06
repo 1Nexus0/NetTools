@@ -3,7 +3,13 @@ name: Publish to NuGet
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*'  # Triggers on tags like v1.0.0, v2.1.0, etc.
+  workflow_dispatch:  # manual trigger
+    inputs:
+      version:
+        description: 'Version to publish'
+        required: true
+        default: '1.0.0'
 
 jobs:
   publish:
