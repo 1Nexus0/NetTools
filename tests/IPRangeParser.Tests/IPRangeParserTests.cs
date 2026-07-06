@@ -564,6 +564,34 @@ namespace Nexus.NetTools.IPRangeParser.Tests
         }
 
         [Fact]
+        public void Cache_IPv6_RepeatedRange_UsesCache()
+        {
+            var start = CreateIPv6Address(0x2001, 0x0db8, 0, 0, 0, 0, 0, 0);
+            var end = CreateIPv6Address(0x2001, 0x0db8, 0, 0, 0, 0, 0, 0xffff);
+
+            IPRangeFastParserPooled.Clear();
+            var (ipv4Before, ipv6Before) = IPRangeFastParserPooled.GetCacheSize();
+
+            // First call - populates IPv6 cache
+            var result1 = IPRangeFastParserPooled.ParseRange(start, end).ToList();
+            var (ipv4After1, ipv6After1) = IPRangeFastParserPooled.GetCacheSize();
+
+            // Second call - uses cached IP strings
+            var result2 = IPRangeFastParserPooled.ParseRange(start, end).ToList();
+            var (ipv4After2, ipv6After2) = IPRangeFastParserPooled.GetCacheSize();
+
+            // IPv6 cache should have entries (individual IP strings are cached)
+            Assert.Equal(0, ipv6Before);
+            Assert.True(ipv6After1 > 0, $"Expected IPv6 cache to have entries, got {ipv6After1}");
+
+            // Cache size should remain the same (no new entries on second call)
+            Assert.Equal(ipv6After1, ipv6After2);
+
+            // Results should be identical
+            Assert.Equal(result1, result2);
+        }
+
+        [Fact]
         public void Cache_ClearCache_ResetsAllCaches()
         {
             var start = new byte[] { 192, 168, 1, 1 };
@@ -577,6 +605,25 @@ namespace Nexus.NetTools.IPRangeParser.Tests
             Assert.True(beforeIpv4 > 0);
             Assert.Equal(0, afterIpv4);
             Assert.Equal(0, afterIpv6);
+        }
+
+        [Fact]
+        public void Cache_IPv6_IndividualIPs_AreCached()
+        {
+            var start = CreateIPv6Address(0, 0, 0, 0, 0, 0, 0, 1);
+            var end = CreateIPv6Address(0, 0, 0, 0, 0, 0, 0, 1);
+
+            IPRangeFastParserPooled.Clear();
+            var (_, ipv6Before) = IPRangeFastParserPooled.GetCacheSize();
+
+            var result = IPRangeFastParserPooled.ParseRange(start, end).ToList();
+            var (_, ipv6After) = IPRangeFastParserPooled.GetCacheSize();
+
+            // Single IP should be cached
+            Assert.Equal(0, ipv6Before);
+            Assert.True(ipv6After > 0, $"Expected IPv6 cache to have entries, got {ipv6After}");
+            Assert.Single(result);
+            Assert.Equal("::1/128", result[0]);
         }
 
         #endregion

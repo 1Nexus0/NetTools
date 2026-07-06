@@ -1,6 +1,4 @@
-﻿# Nexus.NetTools.IPRangeParser
-
-Ultra-fast IP range parser with LRU caching. Converts IP ranges to minimal CIDR blocks. Supports IPv4 and IPv6.
+﻿# IPRangeParser
 
 Ultra-fast IP range parser with LRU caching. Converts IP ranges to minimal CIDR blocks. Supports IPv4 and IPv6.
 
