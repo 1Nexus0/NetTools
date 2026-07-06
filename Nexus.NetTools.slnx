@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="src/Nexus.NetTools.IPRangeParser/Nexus.NetTools.IpRangeParser.csproj" />
-  <Project Path="tests/IPRangeParser.Tests/Nexus.NetTools.IpRangeParser.Tests.csproj" />
+  <Project Path="src/Nexus.NetTools.IPRangeParser/Nexus.NetTools.IPRangeParser.csproj" />
+  <Project Path="tests/IPRangeParser.Tests/Nexus.NetTools.IPRangeParser.Tests.csproj" />
 </Solution>
