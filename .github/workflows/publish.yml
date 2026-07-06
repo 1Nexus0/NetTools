@@ -3,13 +3,14 @@ name: Publish to NuGet
 on:
   push:
     tags:
-      - 'v*'  # Triggers on tags like v1.0.0, v2.1.0, etc.
-  workflow_dispatch:  # manual trigger
+      - 'v*'
+  workflow_dispatch:
     inputs:
       version:
-        description: 'Version to publish'
+        description: 'Version to publish (e.g., 1.0.0)'
         required: true
         default: '1.0.0'
+        type: string
 
 jobs:
   publish:
@@ -17,21 +18,25 @@ jobs:
 
     permissions:
       contents: read
-      id-token: write  
+      id-token: write  # Required for OIDC Trusted Publishing
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
+      - name: Restore dependencies
+        run: dotnet restore src/Nexus.NetTools.IPRangeParser/Nexus.NetTools.IPRangeParser.csproj
+
       - name: Build
-        run: dotnet build --configuration Release
+        run: dotnet build src/Nexus.NetTools.IPRangeParser/Nexus.NetTools.IPRangeParser.csproj --configuration Release --no-restore
 
       - name: Pack
-        run: dotnet pack --configuration Release --output ./output
+        run: dotnet pack src/Nexus.NetTools.IPRangeParser/Nexus.NetTools.IPRangeParser.csproj --configuration Release --no-build --output ./output
 
       - name: NuGet login (OIDC → temp API key)
         uses: NuGet/login@v1
