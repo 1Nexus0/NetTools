@@ -11,8 +11,9 @@
     <PackageTags>ip;range;cidr;parser;networking;ipv4;ipv6</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/1Nexus0/ip-range-parser</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/1Nexus0/ip-range-parser</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/1Nexus0/NetTools</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/1Nexus0/NetTools</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
     <Copyright>Copyright © 1Nexus0</Copyright>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <IncludeSymbols>true</IncludeSymbols>
