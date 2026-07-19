@@ -12,11 +12,8 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Add reviewer using GitHub CLI
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr edit ${{ github.event.pull_request.number }} --add-reviewer 1Nexus0
+      - name: Assign reviewers using auto-assign action
+        uses: kentaro-m/auto-assign-reviewer@v1.3.0
+        with:
+          reviewers: '1Nexus0'
+          numberOfReviewers: 1
