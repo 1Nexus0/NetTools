@@ -12,8 +12,7 @@ jobs:
       contents: read
 
     steps:
-      - name: Assign reviewers using auto-assign action
-        uses: kentaro-m/auto-assign-reviewer@v1.3.0
+      - name: Auto-assign reviewer
+        uses: damianp/stale-pr-reviewer@v1
         with:
           reviewers: '1Nexus0'
-          numberOfReviewers: 1
