@@ -5,7 +5,7 @@
     <LangVersion>latest</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Nexus.NetTools.IPRangeParser</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>1Nexus0</Authors>
     <Description>Ultra-fast IP range parser with LRU caching. Converts IP ranges to minimal CIDR blocks. Supports IPv4 and IPv6.</Description>
     <PackageTags>ip;range;cidr;parser;networking;ipv4;ipv6</PackageTags>
