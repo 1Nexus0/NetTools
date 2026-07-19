@@ -12,7 +12,10 @@ jobs:
       contents: read
 
     steps:
-      - name: Add reviewer
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add reviewer using GitHub CLI
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
