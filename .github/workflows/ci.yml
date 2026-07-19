@@ -17,7 +17,10 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: |
+            6.0.x
+            8.0.x
+            10.0.x
 
       - name: Restore
         run: dotnet restore
@@ -28,27 +31,9 @@ jobs:
       - name: Test
         run: dotnet test --configuration Release --no-build --verbosity normal
 
-  # If you want separate jobs with unique names
-  test-net8:
-    name: Test .NET 8
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup .NET 8
-        uses: actions/setup-dotnet@v4
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          dotnet-version: '8.0.x'
-      - name: Test .NET 8
-        run: dotnet test --framework net8.0
-
-  test-net10:
-    name: Test .NET 10
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup .NET 10
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '10.0.x'
-      - name: Test .NET 10
-        run: dotnet test --framework net10.0
+          name: test-results
+          path: tests/**/TestResults/
