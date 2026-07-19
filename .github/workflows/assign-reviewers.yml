@@ -12,7 +12,14 @@ jobs:
       contents: read
 
     steps:
-      - name: Auto-assign reviewer
-        uses: damianp/stale-pr-reviewer@v1
+      - name: Assign reviewer
+        uses: actions/github-script@v7
         with:
-          reviewers: '1Nexus0'
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            await github.rest.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+              reviewers: ['1Nexus0']
+            });
