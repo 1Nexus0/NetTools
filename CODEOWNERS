@@ -1,0 +1,27 @@
+# CODEOWNERS file for Nexus.NetTools.IPRangeParser
+# Each line is a file pattern followed by one or more owners
+
+# The default owners for everything in the repo
+* @1Nexus0
+
+# Core parser logic
+/src/Nexus.NetTools.IPRangeParser/Core/ @1Nexus0
+/src/Nexus.NetTools.IPRangeParser/IPRangeFastParser.cs @1Nexus0
+/src/Nexus.NetTools.IPRangeParser/IPRangeFastParserPooled.cs @1Nexus0
+
+# Helper files
+/src/Nexus.NetTools.IPRangeParser/Helpers/ @1Nexus0
+
+# Test files
+/tests/ @1Nexus0
+
+# Configuration files
+/*.csproj @1Nexus0
+/*.sln @1Nexus0
+/.github/workflows/*.yml @1Nexus0
+
+# Documentation
+/README.md @1Nexus0
+/CONTRIBUTING.md @1Nexus0
+/pull_request_template.md @1Nexus0
+/LICENSE @1Nexus0
